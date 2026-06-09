@@ -27,6 +27,7 @@ type DictionaryStatus = "idle" | "loading" | "success" | "error";
 
 type DictionaryContextValue = {
   activeSearchTerm: string;
+  clearHistory: () => void;
   connectionStatus: DictionaryConnectionStatus;
   entry: DictionaryEntry | null;
   error: DictionaryUiError | null;
@@ -79,6 +80,10 @@ export function DictionaryProvider({
     setStatus((currentStatus) =>
       currentStatus === "error" ? "idle" : currentStatus,
     );
+  }, []);
+
+  const clearHistory = useCallback(() => {
+    setHistory([]);
   }, []);
 
   const setActiveWord = useCallback((word: string) => {
@@ -205,6 +210,7 @@ export function DictionaryProvider({
     <DictionaryContext
       value={{
         activeSearchTerm,
+        clearHistory,
         connectionStatus,
         entry,
         error,

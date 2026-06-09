@@ -13,6 +13,7 @@ export function SearchScreen() {
   const {
     activeSearchTerm,
     clearError,
+    clearHistory,
     connectionStatus,
     error,
     history,
@@ -136,9 +137,19 @@ export function SearchScreen() {
 
         {isHistoryHydrated && history.length > 0 && (
           <View className="gap-3">
-            <Text className="text-[13px] font-semibold uppercase tracking-[1.8px] text-muted-foreground">
-              Recent searches
-            </Text>
+            <View className="flex-row items-center justify-between gap-3">
+              <Text className="text-[13px] font-semibold uppercase tracking-[1.8px] text-muted-foreground">
+                Recent searches
+              </Text>
+              <Pressable
+                onPress={clearHistory}
+                className="rounded-full border border-border bg-card px-3 py-1.5 active:bg-muted"
+              >
+                <Text className="text-[12px] font-semibold uppercase tracking-[1.2px] text-muted-foreground">
+                  Clear history
+                </Text>
+              </Pressable>
+            </View>
             <View className="flex-row flex-wrap gap-2.5">
               {history.map((word) => (
                 <Pressable
